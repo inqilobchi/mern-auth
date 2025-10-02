@@ -5,6 +5,7 @@ import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors';
 dotenv.config();
 
 mongoose
@@ -15,7 +16,12 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
+app.use(cors({
+  origin: true,               // Har qanday domenni qabul qiladi (browswer yuborgan Origin ni avtomatik oladi)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Ruxsat etilgan methodlar
+  allowedHeaders: ['Content-Type', 'Authorization'], // Ruxsat etilgan headerlar
+  credentials: true          // Cookie va authorization header yuborishga ruxsat
+}));
 const __dirname = path.resolve();
 
 const app = express();
